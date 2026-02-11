@@ -9,6 +9,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.ucb.app.counter.presentation.screen.CounterScreen
 import com.ucb.app.detail.presentation.screen.DetailScreen
 import com.ucb.app.product_detail.presentation.screen.ProductDetailScreen
 
@@ -24,7 +25,8 @@ fun App() {
         ) { paddingVaues ->
 //            CollectionScreen( modifier = Modifier.padding(paddingVaues))
             //DetailScreen(modifier = Modifier.padding(paddingVaues))
-            ProductDetailScreen(modifier = Modifier.padding(paddingVaues))
+//            ProductDetailScreen(modifier = Modifier.padding(paddingVaues))
+            CounterScreen()
         }
 
     }

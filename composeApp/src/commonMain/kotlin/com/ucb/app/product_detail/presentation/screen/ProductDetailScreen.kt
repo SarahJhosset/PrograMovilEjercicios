@@ -20,6 +20,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,13 +29,18 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ucb.app.product_detail.presentation.viewmodel.ProductDetailViewModel
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.icon_cart
 import kotlinproject.composeapp.generated.resources.imagedetail
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ProductDetailScreen(modifier: Modifier) {
+fun ProductDetailScreen(modifier: Modifier, viewModel: ProductDetailViewModel = koinViewModel()) {
+
+    val cadenaState = viewModel.cadena.collectAsState()
+
     val scroll = rememberScrollState()
     Box( modifier = Modifier.background(Color.Red).fillMaxSize().padding(25.dp)
         .verticalScroll(scroll)) {
@@ -47,7 +53,9 @@ fun ProductDetailScreen(modifier: Modifier) {
             Column(
                 modifier = Modifier.align(Alignment.TopStart)
             ) {
+                Text(cadenaState.value)
                 IconButton(onClick = {
+                    viewModel.increment()
                 }) {
                     Text("S")
                 }
