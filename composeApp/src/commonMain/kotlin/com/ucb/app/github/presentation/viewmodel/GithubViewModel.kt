@@ -32,7 +32,13 @@ class GithubViewModel(
 
     fun onEvent(event: GithubEvent) {
         when( event) {
-            is GithubEvent.OnChangeAvagar -> TODO()
+            is GithubEvent.OnChangeAvatar -> {
+                _state.update {
+                    it.copy(
+                        nickname = event.value
+                    )
+                }
+            }
             GithubEvent.OnClickFind -> findAvatar()
         }
     }
@@ -43,13 +49,20 @@ class GithubViewModel(
         }
         viewModelScope.launch {
             val model = GithubModel(
-                avatar = _state.value.model.avatar
+                avatar = _state.value.nickname
             )
-            val response = userCase.invoke(model)
+            try {
+                val response = userCase.invoke(model)
 
-            _state.update {
-                it.copy(model = response, isLoading = false)
+                _state.update {
+                    it.copy(model = response, isLoading = false)
+                }
+            } catch (e: Throwable) {
+                print(e.printStackTrace())
+                _state.update {
+                    it.copy(isLoading = false)
+                }
             }
-        }
+       }
     }
 }

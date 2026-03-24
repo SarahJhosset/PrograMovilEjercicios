@@ -15,6 +15,10 @@ class MovieViewModel(
     private val _state = MutableStateFlow(MovieUiState())
     val state = _state.asStateFlow()
 
+    init {
+        load()
+    }
+
     fun load() {
         _state.update {
             it.copy(isLoading = true)
