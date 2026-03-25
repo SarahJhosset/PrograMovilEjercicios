@@ -31,4 +31,20 @@ class MovieViewModel(
         }
 
     }
+
+    //Para las estrellas
+    fun onRatingChanged(movieTitle: String, newRating: Int) {
+        _state.update { currentState ->
+            val updatedList = currentState.list.map { movie ->
+                if (movie.title == movieTitle) {
+                    // Lógica: Si el rating actual es igual al que clickeé, lo pongo en 0
+                    val finalRating = if (movie.rating == newRating) 0 else newRating
+                    movie.copy(rating = finalRating)
+                } else {
+                    movie
+                }
+            }
+            currentState.copy(list = updatedList)
+        }
+    }
 }

@@ -5,6 +5,7 @@ import com.ucb.app.movie.domain.model.MovieModel
 
 fun MovieDto.toModel() = MovieModel(
     description = "",
-    pathUrl = "https://image.tmdb.org/t/p/w185$posterPath",
-    title = title
+    pathUrl = "https://image.tmdb.org/t/p/w500$posterPath",
+    title = title,
+    schedules   = listOf("14:00", "16:30", "19:00", "21:30")
 )
