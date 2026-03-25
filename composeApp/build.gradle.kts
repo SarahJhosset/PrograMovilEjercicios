@@ -61,6 +61,9 @@ kotlin {
 
             implementation(libs.coil.compose)
             implementation(libs.coil.network)
+
+            // para usar Icons
+            implementation(libs.material.icons.extended)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)

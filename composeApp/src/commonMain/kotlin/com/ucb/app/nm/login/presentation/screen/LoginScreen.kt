@@ -12,10 +12,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ucb.app.nm.login.presentation.state.LoginEffect
@@ -25,7 +21,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    snackbarHostState: SnackbarHostState,
+    snackbarHostState: SnackbarHostState?,
     viewModel: LoginViewModel = koinViewModel()
 ) {
     val state = viewModel.state.collectAsState()
@@ -35,7 +31,7 @@ fun LoginScreen(
             when(effect) {
                 LoginEffect.NavigateToHome -> TODO()
                 is LoginEffect.ShowError -> {
-                    snackbarHostState.showSnackbar(effect.message,
+                    snackbarHostState?.showSnackbar(effect.message,
                         withDismissAction = true)
                 }
             }
