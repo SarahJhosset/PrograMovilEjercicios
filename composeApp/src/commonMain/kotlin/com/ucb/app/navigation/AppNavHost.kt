@@ -1,67 +1,67 @@
 package com.ucb.app.navigation
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.ucb.app.booking.presentation.screen.BookingScreen
+import com.ucb.app.country.presentation.screen.CountryScreen
+import com.ucb.app.crypto.presentation.screen.CryptoScreen
+import com.ucb.app.fakestore.presentation.screen.StoreScreen
+import com.ucb.app.github.presentation.screen.GithubScreen
 import com.ucb.app.movie.presentation.screen.MovieDetailScreen
 import com.ucb.app.movie.presentation.screen.MovieScreen
-import com.ucb.app.nm.login.presentation.screen.LoginScreen
 
 @Composable
-fun AppNavHost(snackbarHostState: SnackbarHostState) {
-
+fun AppNavHost() {
 
     val navController = rememberNavController()
 
+    NavHost(navController = navController, startDestination = NavRoute.Crypto) {
+        composable<NavRoute.Profile> {
 
-    // Dentro de tu AppNavHost.kt
-    NavHost(navController = navController, startDestination = "movies") {
-        //NavHost(navController = navController, startDestination = "movies") {
-        // si se quiere cambiar lo q se va a ver solo cambiamos startDestination
-
-        // Login
-        composable("login") {
-            LoginScreen(
-                snackbarHostState = snackbarHostState
-            )
         }
 
-        // Movie
-        composable("movies") {
+        composable<NavRoute.ProfileEdit> {
+
+        }
+        composable<NavRoute.Github> {
+            GithubScreen()
+        }
+        composable<NavRoute.Movies> {
             MovieScreen(
                 onMovieClick = { title ->
-                    // El NavHost escucha el título y ejecuta la navegación real
-                    navController.navigate("detail/$title")
+                    navController.navigate(NavRoute.MovieDetail(title))
                 }
             )
         }
-        // Detalle de movie
-        composable("detail/{title}") { backStackEntry ->
-            // 1. Extraemos el título de la "bolsa de viaje" (arguments)
-            val movieTitle = backStackEntry.arguments?.getString("title") ?: "Sin Nombre"
-
-            // 2. LLAMAMOS A LA PANTALLA (Para que no salga en blanco)
+        composable<NavRoute.MovieDetail> { backStackEntry ->
+            val movieDetail: NavRoute.MovieDetail = backStackEntry.toRoute()
             MovieDetailScreen(
-                title = movieTitle,
+                title = movieDetail.title,
                 onBack = { navController.popBackStack() },
                 onBookTicket = { title, schedule ->
-                    navController.navigate("booking/$title/$schedule")
+                    navController.navigate(NavRoute.Booking(title, schedule))
                 }
             )
         }
-
-        //Entradas Booking
-        composable("booking/{title}/{schedule}") { backStackEntry ->
-            val title    = backStackEntry.arguments?.getString("title")    ?: ""
-            val schedule = backStackEntry.arguments?.getString("schedule") ?: ""
+        composable<NavRoute.Booking> { backStackEntry ->
+            val booking: NavRoute.Booking = backStackEntry.toRoute()
             BookingScreen(
-                movieTitle    = title,
-                schedule      = schedule,
+                movieTitle = booking.movieTitle,
+                schedule = booking.schedule,
                 navController = navController
             )
+        }
+        composable<NavRoute.Crypto> {
+            CryptoScreen()
+        }
+        composable<NavRoute.FakeStore> {
+            StoreScreen()
+        }
+        composable<NavRoute.CountryStore> {
+            CountryScreen()
         }
     }
 }

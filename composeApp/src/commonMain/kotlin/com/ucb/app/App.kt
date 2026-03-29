@@ -34,7 +34,7 @@ fun App() {
             contentWindowInsets = WindowInsets.safeDrawing,
             snackbarHost = { SnackbarHost(snackbarHostState) }
         ) { paddingVaues ->
-            AppNavHost(snackbarHostState = snackbarHostState)
+            AppNavHost()
         }
 
     }

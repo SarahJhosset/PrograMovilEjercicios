@@ -1,7 +1,9 @@
 package com.ucb.app.di
 
-import com.ucb.app.booking.presentation.viewmodel.BookingViewModel
 import com.ucb.app.counter.presentation.viewmodel.CounterViewModel
+import com.ucb.app.country.presentation.viewmodel.CountryViewModel
+import com.ucb.app.crypto.presentation.viewmodel.CryptoViewModel
+import com.ucb.app.fakestore.presentation.viewmodel.FakeStoreViewModel
 import com.ucb.app.github.presentation.viewmodel.GithubViewModel
 import com.ucb.app.increment.presentation.viewmodel.IncrementViewModel
 import com.ucb.app.movie.presentation.viewmodel.MovieViewModel
@@ -21,7 +23,7 @@ val presentationModule = module {
     viewModelOf(::GithubViewModel)
     viewModelOf(::SigninViewModel)
     viewModelOf(::MovieViewModel)
-
-    viewModelOf(::LoginViewModel)
-    viewModelOf(::BookingViewModel)
+    viewModelOf(::CryptoViewModel)
+    viewModelOf(::FakeStoreViewModel)
+    viewModelOf(::CountryViewModel)
 }
